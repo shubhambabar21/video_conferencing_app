@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use server';
 
 import { currentUser } from '@clerk/nextjs/server';
@@ -13,12 +14,13 @@ export const tokenProvider = async () => {
   if (!STREAM_API_KEY) throw new Error('Stream API key secret is missing');
   if (!STREAM_API_SECRET) throw new Error('Stream API secret is missing');
 
-  const streamClient = new StreamClient(STREAM_API_KEY, STREAM_API_SECRET);
+  const client = new StreamClient(STREAM_API_KEY, STREAM_API_SECRET);
 
   const expirationTime = Math.floor(Date.now() / 1000) + 3600;
   const issuedAt = Math.floor(Date.now() / 1000) - 60;
+  const userId = String(user.id);
 
-  const token = streamClient.createToken(user.id, expirationTime, issuedAt);
+  const token = client.generateUserToken({ user_id: userId, exp: expirationTime, iat:issuedAt });
 
   return token;
 };

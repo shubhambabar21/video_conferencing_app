@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable camelcase */
 'use client';
@@ -9,7 +10,7 @@ import HomeCard from './HomeCard';
 import MeetingModal from './MeetingModal';
 import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk';
 import { useUser } from '@clerk/nextjs';
-import Loader from './Loader';
+// import Loader from './Loader';
 import { Textarea } from './ui/textarea';
 // import ReactDatePicker from 'react-datepicker';
 import { useToast } from './ui/use-toast';
@@ -23,7 +24,7 @@ const initialValues = {
 
 const MeetingTypeList = () => {
   const router = useRouter();
-  const [meetingState, setMeetingState] = useState<
+  const [meetingState,setMeetingState] = useState<
     'isScheduleMeeting' | 'isJoiningMeeting' | 'isInstantMeeting' | undefined
   >(undefined);
   const [values, setValues] = useState(initialValues);
@@ -62,11 +63,11 @@ const MeetingTypeList = () => {
       });
     } catch (error) {
       console.error(error);
-      toast({ title: 'Failed to create Meeting' });
+      toast({ title: 'Failed to create meeting' });
     }
   };
 
-  if (!client || !user) return <Loader />;
+  // if (!client || !user) return <Loader />;
 
   const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${callDetail?.id}`;
 
